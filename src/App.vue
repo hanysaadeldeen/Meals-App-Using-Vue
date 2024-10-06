@@ -1,9 +1,10 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <h1 class="text-3xl text-red-600 font-bold underline">Hello world</h1>
+  <Header></Header>
+  <router-view></router-view>
 </template>
+
+<script setup>
+import Header from "./components/Navbar/Header.vue";
+</script>
 
 <style scoped></style>
