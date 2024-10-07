@@ -4,16 +4,33 @@ import axiosClient from "../AxiosClient";
 
 const MealsStore = defineStore("MealsStore", () => {
   const meals = reactive([]);
+  const mealsByName = reactive([]);
   const loading = ref(false);
 
   async function GetAllMeals() {
     loading.value = true;
-    const res = await axiosClient.get("list.php?i=list");
-    if (!res.status === 200) {
-      console.log("error");
-    } else {
-      const AllMeals = res.data.meals.slice(0, 30);
-      meals.push(...AllMeals);
+    try {
+      const res = await axiosClient.get("list.php?i=list");
+      if (res.status === 200) {
+        const AllMeals = res.data.meals.slice(0, 30);
+        meals.splice(0, meals.length, ...AllMeals);
+      }
+    } catch (error) {
+      console.error("Error fetching all meals:", error);
+    }
+    loading.value = false;
+  }
+
+  async function SearchMealByName(value) {
+    loading.value = true;
+    try {
+      const res = await axiosClient.get(`search.php?s=${value}`);
+      if (res.status === 200) {
+        const AllMeals = res.data.meals;
+        mealsByName.splice(0, mealsByName.length, ...AllMeals);
+      }
+    } catch (error) {
+      console.error("Error searching meals by name:", error);
     }
     loading.value = false;
   }
@@ -22,6 +39,8 @@ const MealsStore = defineStore("MealsStore", () => {
     loading,
     meals,
     GetAllMeals,
+    SearchMealByName,
+    mealsByName,
   };
 });
 

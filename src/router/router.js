@@ -22,7 +22,7 @@ const routes = [
         props: true,
       },
       {
-        path: "/byingredients",
+        path: "/byIngredients",
         name: "ingredients",
         component: () => import("../views/Ingredients.vue"), //this is for lazy loading
       },
@@ -41,7 +41,7 @@ const routes = [
       {
         path: "/meal/:id",
         name: "mealDetails",
-        component: () => import("../views/MealDetails.vue"),
+        component: () => import("../components/layout/meal/MealDetails.vue"),
         props: true,
       },
     ],
