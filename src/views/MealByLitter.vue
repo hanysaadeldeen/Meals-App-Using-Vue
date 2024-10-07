@@ -3,6 +3,5 @@
 </template>
 <script setup>
 const params = defineProps(["letter"]);
-console.log(params.letter);
 </script>
 <style lang=""></style>

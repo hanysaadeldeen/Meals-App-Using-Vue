@@ -1,21 +1,24 @@
 <template lang="">
-  <main>
-    <header>
-      <h1>Home Page</h1>
-    </header>
-    <section>
-      <router-link
-        v-for="letter in letters.split('')"
-        :key="letter"
-        :to="{ name: 'byLetter', params: { letter } }"
-        >{{ letter }}</router-link
-      >
-    </section>
-  </main>
+  <section>
+    <router-link
+      v-for="letter in letters.split('')"
+      :key="letter"
+      :to="{ name: 'byLetter', params: { letter } }"
+      >{{ letter }}</router-link
+    >
+  </section>
 </template>
-<!-- :to="`/letter/${letter}`"-->
 <script setup>
+import { onMounted } from "vue";
+import axiosClient from "../AxiosClient";
+import MealsStore from "../store/MealsStore";
+
 const letters = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
+
+const { GetAllMeals } = MealsStore();
+onMounted(() => {
+  GetAllMeals();
+});
 </script>
 
 <style scoped>
