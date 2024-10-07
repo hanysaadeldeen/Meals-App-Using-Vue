@@ -1,7 +1,9 @@
 <template>
-  <div>meal details</div>
+  <div>meal details {{ id }}</div>
 </template>
 
-<script setup></script>
+<script setup>
+const params = defineProps(["id"]);
+</script>
 
 <style scoped></style>

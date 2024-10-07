@@ -9,10 +9,39 @@
         >{{ letter }}</router-link
       >
     </section>
+    <section v-if="!loading && mealsByLetter.length > 0">
+      <MealItem :meals="mealsByLetter" />
+    </section>
+    <div
+      v-else-if="!loading && mealsByLetter.length === 0"
+      class="w-full text-center my-4 text-2xl"
+    >
+      Choose Any Character to Show Meals
+    </div>
+    <Loading v-if="loading" />
   </div>
 </template>
 <script setup>
+import { useRoute } from "vue-router";
+import MealsStore from "../store/MealsStore";
+import { watch } from "vue";
+import { storeToRefs } from "pinia";
+import Loading from "../components/util/Loading.vue";
+import MealItem from "../components/layout/meal/Mealtem.vue";
+
 const letters = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
 const params = defineProps(["letter"]);
+const store = MealsStore(); // Access the store
+
+const route = useRoute();
+const { SearchMealByLetter } = MealsStore();
+const { loading, mealsByLetter } = storeToRefs(store);
+watch(route, () => {
+  SearchMealByLetter(params.letter);
+});
+
+if (params.letter) {
+  SearchMealByLetter(params.letter);
+}
 </script>
 <style lang=""></style>

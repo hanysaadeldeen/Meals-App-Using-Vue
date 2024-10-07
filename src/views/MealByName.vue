@@ -16,19 +16,23 @@
     </div>
   </section>
   <section v-if="!loading && mealsByName.length > 0">
-    <div v-for="meal in mealsByName" :key="meal.idMeal">
-      {{ meal.strMeal }}
-    </div>
+    <MealItem :meals="mealsByName" />
   </section>
-  <div v-if="loading">
-    <h1>loading.......</h1>
+  <div
+    v-else-if="!loading && mealsByName.length === 0"
+    class="w-full text-center text-2xl"
+  >
+    No meals found
   </div>
+  <Loading v-if="loading" />
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import MealsStore from "../store/MealsStore";
 import { storeToRefs } from "pinia";
+import Loading from "../components/util/Loading.vue";
+import MealItem from "../components/layout/meal/Mealtem.vue";
 
 const title = ref("");
 const nameProp = defineProps(["name"]);

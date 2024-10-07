@@ -8,7 +8,7 @@
     <div class="flex gap-2">
       <router-link
         :to="{ name: 'byLetter' }"
-        class="mx-4 rounded-md hover:bg-[#e1a067] bg-[#e1a067] transition-all ease-in-out border-[#cc6428] border px-6 py-2"
+        class="mx-4 rounded-md hover:bg-[#cc6428] bg-[#e1a067] transition-all ease-in-out border-[#cc6428] border px-6 py-2"
       >
         <button
           :class="{ 'text-[#fffdf5]': pathName.includes('/byletter') }"
@@ -19,7 +19,7 @@
       </router-link>
       <router-link
         :to="{ name: 'byName' }"
-        class="mx-4 rounded-md hover:bg-[#e1a067] bg-[#e1a067] transition-all ease-in-out border-[#cc6428] border px-6 py-2"
+        class="mx-4 rounded-md hover:bg-[#cc6428] bg-[#e1a067] transition-all ease-in-out border-[#cc6428] border px-6 py-2"
       >
         <button
           :class="{ 'text-[#fffdf5]': pathName.includes('/byName') }"
@@ -30,7 +30,7 @@
       </router-link>
       <router-link
         :to="{ name: 'ingredients' }"
-        class="mx-4 rounded-md hover:bg-[#e1a067] bg-[#e1a067] transition-all ease-in-out border-[#cc6428] border px-6 py-2"
+        class="mx-4 rounded-md hover:bg-[#cc6428] bg-[#e1a067] transition-all ease-in-out border-[#cc6428] border px-6 py-2"
       >
         <button
           :class="{ 'text-[#fffdf5]': route.path.includes('/byIngredients') }"
