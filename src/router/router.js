@@ -4,40 +4,61 @@ import Home from "../views/Home.vue";
 import IngredientsItem from "../views/IngredientsItem.vue";
 import MealByLitter from "../views/MealByLitter.vue";
 import MealByName from "../views/MealByName.vue";
+import DefaultRoutes from "../components/layout/DefaultRoutes.vue";
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home,
+    component: DefaultRoutes,
+    children: [
+      {
+        path: "/",
+        name: "home",
+        component: Home,
+      },
+      {
+        path: "/byletter/:letter?",
+        name: "byLetter",
+        component: MealByLitter,
+        props: true,
+      },
+      {
+        path: "/byingredients",
+        name: "ingredients",
+        component: () => import("../views/Ingredients.vue"), //this is for lazy loading
+      },
+      {
+        path: "/byingredients/:ingredient",
+        name: "ingredientsItem",
+        component: IngredientsItem,
+        props: true,
+      },
+      {
+        path: "/byName/:name?",
+        name: "byName",
+        component: MealByName,
+        props: true,
+      },
+      {
+        path: "/meal/:id",
+        name: "mealDetails",
+        component: () => import("../views/MealDetails.vue"),
+        props: true,
+      },
+    ],
   },
+
   {
-    path: "/letter/:letter?",
-    name: "byLetter",
-    component: MealByLitter,
-    props: true,
-  },
-  {
-    path: "/ingredients",
-    name: "ingredients",
-    component: () => import("../views/Ingredients.vue"), //this is for lazy loading
-  },
-  {
-    path: "/ingredients/:ingredient",
-    name: "ingredientsItem",
-    component: IngredientsItem,
-    props: true,
-  },
-  {
-    path: "/by-name/:name?",
-    name: "byName",
-    component: MealByName,
-    props: true,
-  },
-  {
-    path: "/meal/:id",
-    name: "mealDetails",
-    component: () => import("../views/MealDetails.vue"),
-    props: true,
+    path: "/auth",
+    name: "auth",
+    component: () => import("../components/layout/Guest/GuestAuth.vue"),
+    children: [
+      {
+        path: "/guest",
+        name: "GuestAuth",
+        component: () =>
+          import("../components/layout/Guest/Authentication.vue"),
+      },
+    ],
   },
 ];
 
