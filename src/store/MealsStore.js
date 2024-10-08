@@ -3,11 +3,12 @@ import { reactive, ref } from "vue";
 import axiosClient from "../AxiosClient";
 
 const MealsStore = defineStore("MealsStore", () => {
+  const meals = reactive([]);
   const mealsByName = reactive([]);
   const mealsByLetter = reactive([]);
+  const mealDetails = ref([]);
   const loading = ref(false);
 
-  const meals = reactive([]);
   async function GetAllMeals() {
     loading.value = true;
     meals.length = 0;
@@ -30,8 +31,6 @@ const MealsStore = defineStore("MealsStore", () => {
       const res = await axiosClient.get(`search.php?s=${value}`);
       if (res.status === 200) {
         const AllMeals = res.data.meals;
-        console.log(AllMeals);
-
         mealsByName.splice(0, mealsByName.length, ...AllMeals);
       }
     } catch (error) {
@@ -53,6 +52,19 @@ const MealsStore = defineStore("MealsStore", () => {
     loading.value = false;
   }
 
+  async function GetMealsDetails(id) {
+    loading.value = true;
+    try {
+      const { data } = await axiosClient.get(`lookup.php?i=${id}`);
+
+      mealDetails.value = data.meals[0];
+    } catch (error) {
+      console.error("Error searching meals by name:", error);
+    } finally {
+      loading.value = false;
+    }
+  }
+
   return {
     loading,
     meals,
@@ -61,6 +73,8 @@ const MealsStore = defineStore("MealsStore", () => {
     mealsByName,
     mealsByLetter,
     SearchMealByLetter,
+    GetMealsDetails,
+    mealDetails,
   };
 });
 

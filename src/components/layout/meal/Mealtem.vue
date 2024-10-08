@@ -6,7 +6,7 @@
         :key="meal.idMeal"
         class="bg-white shadow rounded-xl hover:scale-105 transition-all pb-4"
       >
-        <router-link :to="`/meal/${meal.idMeal}`">
+        <router-link :to="{ name: 'mealDetails', params: { id: meal.idMeal } }">
           <img
             :src="meal.strMealThumb"
             :alt="meal.strMeal"
