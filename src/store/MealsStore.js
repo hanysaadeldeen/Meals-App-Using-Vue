@@ -7,7 +7,10 @@ const MealsStore = defineStore("MealsStore", () => {
   const mealsByName = reactive([]);
   const mealsByLetter = reactive([]);
   const mealDetails = ref([]);
+  const mealIngredient = reactive([]);
+  const mealByIngredient = reactive([]);
   const loading = ref(false);
+  const error = ref(null);
 
   async function GetAllMeals() {
     loading.value = true;
@@ -19,7 +22,7 @@ const MealsStore = defineStore("MealsStore", () => {
         meals.push(data.meals[0]);
       }
     } catch (error) {
-      console.error("Error fetching all meals:", error);
+      error.value = error;
     } finally {
       loading.value = false;
     }
@@ -34,7 +37,7 @@ const MealsStore = defineStore("MealsStore", () => {
         mealsByName.splice(0, mealsByName.length, ...AllMeals);
       }
     } catch (error) {
-      console.error("Error searching meals by name:", error);
+      error.value = error;
     }
     loading.value = false;
   }
@@ -47,7 +50,7 @@ const MealsStore = defineStore("MealsStore", () => {
         mealsByLetter.splice(0, mealsByLetter.length, ...AllMeals);
       }
     } catch (error) {
-      console.error("Error searching meals by name:", error);
+      error.value = error;
     }
     loading.value = false;
   }
@@ -56,10 +59,35 @@ const MealsStore = defineStore("MealsStore", () => {
     loading.value = true;
     try {
       const { data } = await axiosClient.get(`lookup.php?i=${id}`);
-
       mealDetails.value = data.meals[0];
     } catch (error) {
-      console.error("Error searching meals by name:", error);
+      error.value = error;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function GetIngredients() {
+    loading.value = true;
+    try {
+      const { data } = await axiosClient.get("list.php?i=list");
+      const AllIngred = data.meals.splice(0, 30);
+      mealIngredient.splice(0, mealIngredient.length, ...AllIngred);
+    } catch (error) {
+      error.value = error;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function IngredientsByName(name) {
+    loading.value = true;
+    try {
+      const { data } = await axiosClient.get(`filter.php?i=${name}`);
+      const AllIngred = data.meals.splice(0, 30);
+      mealByIngredient.splice(0, mealByIngredient.length, ...AllIngred);
+    } catch (error) {
+      error.value = error;
     } finally {
       loading.value = false;
     }
@@ -75,6 +103,11 @@ const MealsStore = defineStore("MealsStore", () => {
     SearchMealByLetter,
     GetMealsDetails,
     mealDetails,
+    GetIngredients,
+    mealIngredient,
+    IngredientsByName,
+    mealByIngredient,
+    error,
   };
 });
 

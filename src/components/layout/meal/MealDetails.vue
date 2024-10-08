@@ -33,48 +33,9 @@
       </div>
 
       <div
-        class="my-3 bg-[#ef4444] shadow text-white p-5 rounded md:leading-loose"
+        class="my-3 bg-[#cc6428] shadow text-white p-5 rounded md:leading-loose"
       >
         {{ mealDetails.strInstructions }}
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2">
-        <div>
-          <h2 class="text-2xl font-semibold mb-2">Ingredients</h2>
-          <ul>
-            <!-- <div v-for="(_, ind) of new Array(20)">
-            <li v-if="meal[`strIngredient${ind + 1}`]">
-              {{ ind + 1 }}. {{ meal[`strIngredient${ind + 1}`] }}
-            </li>
-          </div> -->
-          </ul>
-        </div>
-        <div>
-          <h2 class="text-2xl font-semibold mb-2">Measures</h2>
-          <ul>
-            <!-- <div v-for="(_, ind) of new Array(20)">
-            <li v-if="meal[`strIngredient${ind + 1}`]">
-              {{ ind + 1 }}. {{ meal[`strMeasure${ind + 1}`] }}
-            </li>
-          </div> -->
-          </ul>
-        </div>
-        <div class="flex items-center">
-          <!-- <a :href="meal.strYoutube" target="_blank">
-          <button class="mx-0">Youtube</button>
-        </a>
-        <a :src="meal.strSource" target="_blank">
-          <button class="mx-0">View Original Source</button>
-        </a> -->
-          <!-- <base-buttons class="mx-0" :href="meal.strYoutube"
-          >Youtube</base-buttons
-        >
-        
-
-        <base-buttons link="link" :src="meal.strSource"
-          >View Original Source</base-buttons
-        > -->
-        </div>
       </div>
     </div>
 

@@ -19,20 +19,15 @@
             {{ meal.strInstructions }}
           </p>
         </div>
-        <div class="flex items-center justify-between">
-          <a
-            class="mx-4 rounded-md hover:bg-[#cc6428] bg-[#e1a067] transition-all ease-in-out border-[#cc6428] border px-6 py-2"
-            :href="meal.strYoutube"
-            >Youtube</a
-          >
-        </div>
+        <base-link :link="meal.strYoutube">Youtube</base-link>
       </div>
     </div>
   </div>
 </template>
-<!-- :to="{ name: 'mealDetails', params: { id: meal.idMeal } }" -->
 
 <script setup>
+import BaseLink from "../../util/BaseLink.vue";
+
 const props = defineProps(["meals"]);
 </script>
 
