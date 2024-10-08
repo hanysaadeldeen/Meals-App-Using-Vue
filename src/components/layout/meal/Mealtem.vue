@@ -15,9 +15,8 @@
         </router-link>
         <div class="p-3">
           <h3 class="font-bold">{{ meal.strMeal }}</h3>
-          <p class="mb-4">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Repellendus dicta saepe.
+          <p class="mb-4 overflow-hidden line-clamp-2">
+            {{ meal.strInstructions }}
           </p>
         </div>
         <div class="flex items-center justify-between">

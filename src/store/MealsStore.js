@@ -3,23 +3,25 @@ import { reactive, ref } from "vue";
 import axiosClient from "../AxiosClient";
 
 const MealsStore = defineStore("MealsStore", () => {
-  const meals = reactive([]);
   const mealsByName = reactive([]);
   const mealsByLetter = reactive([]);
   const loading = ref(false);
 
+  const meals = reactive([]);
   async function GetAllMeals() {
     loading.value = true;
+    meals.length = 0;
     try {
-      const res = await axiosClient.get("list.php?i=list");
-      if (res.status === 200) {
-        const AllMeals = res.data.meals.slice(0, 30);
-        meals.splice(0, meals.length, ...AllMeals);
+      for (let i = 0; i < 10; i++) {
+        const { data } = await axiosClient.get(`random.php`);
+
+        meals.push(data.meals[0]);
       }
     } catch (error) {
       console.error("Error fetching all meals:", error);
+    } finally {
+      loading.value = false;
     }
-    loading.value = false;
   }
 
   async function SearchMealByName(value) {
